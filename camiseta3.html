@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo-2.png">
+    <title>Camisetas Boxy</title>
+
+    <style>
+        :root {
+            --negro-fondo: #0a050d;
+            --rojo-neon: #ff2a00;
+            --cian-termico: #a3ffeb;
+            --blanco: #ffffff;
+            --gris-claro: #f4f4f4;
+            --gris-texto: #666666;
+            --verde-descuento: #0a8754;
+            --verde-whatsapp: #25d366;
+            --rojo-descuento: #d90429;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--negro-fondo);
+            background-image: linear-gradient(rgba(10, 5, 13, 0.85), rgba(10, 5, 13, 0.85)), 
+                              url('https://static.vecteezy.com/system/resources/thumbnails/020/171/692/small/fire-liquid-iridescent-background-iridescent-chrome-wavy-gradient-abstract-background-holographic-fire-texture-liquid-surface-ripples-reflection-photo.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            color: var(--blanco);
+            overflow-x: hidden;
+            padding-top: 140px;
+            padding-bottom: 100px;
+        }
+
+        /* --- HEADER PRINCIPAL --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            position: fixed;
+            top: 0; 
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-contenedor img {
+            height: 90px;
+            filter: drop-shadow(0 0 8px var(--rojo-neon));
+        }
+
+        .menu-derecha {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none; 
+            border: none; 
+            color: var(--blanco);
+            cursor: pointer; 
+            font-size: 14px; 
+            letter-spacing: 1px;
+            transition: 0.3s; 
+            text-transform: uppercase;
+        }
+
+        .icon-btn:hover {
+            color: var(--cian-termico);
+            text-shadow: 0 0 10px var(--rojo-neon);
+        }
+
+        /* --- MENÚ LATERAL (SIDEBAR) --- */
+        .sidebar {
+            position: fixed;
+            top: 0; 
+            right: -350px;
+            width: 350px; 
+            height: 100%;
+            background: rgba(10, 5, 13, 0.98);
+            backdrop-filter: blur(15px);
+            border-left: 2px solid var(--rojo-neon);
+            transition: right 0.5s ease;
+            z-index: 2000;
+            padding: 60px 40px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 35px;
+        }
+
+        .sidebar.active { 
+            right: 0; 
+        }
+
+        .close-sidebar {
+            align-self: flex-end; 
+            background: none; 
+            border: none;
+            color: var(--rojo-neon); 
+            font-size: 24px; 
+            cursor: pointer;
+        }
+
+        .sidebar-link {
+            color: var(--blanco); 
+            text-decoration: none;
+            font-size: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--cian-termico);
+            padding-left: 10px;
+        }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 25px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+        .breadcrumb a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        /* --- LAYOUT PRINCIPAL DEL PRODUCTO --- */
+        .pdp-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- GALERÍA --- */
+        .galeria-wrapper {
+            display: flex;
+            gap: 15px;
+        }
+
+        .thumbnails {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .thumb-img {
+            width: 70px;
+            height: 90px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 1px solid transparent;
+            opacity: 0.7;
+            transition: 0.2s;
+        }
+
+        .thumb-img.activo, .thumb-img:hover {
+            border-color: var(--blanco);
+            opacity: 1;
+        }
+
+        .main-image-container {
+            position: relative;
+            flex: 1;
+            background-color: var(--gris-claro);
+            height: 600px;
+        }
+
+        .main-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .arrow-prev { left: 15px; }
+        .arrow-next { right: 15px; }
+
+        /* --- DETALLES Y COMPRA --- */
+        .producto-detalles {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .producto-titulo {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .producto-ref {
+            font-size: 12px;
+            color: #aaa;
+            margin: -10px 0 0 0;
+        }
+
+        .badge-descuento {
+            color: #25d366;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .precio-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .precio-anterior {
+            font-size: 18px;
+            color: #aaa;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .porcentaje-off {
+            color: var(--rojo-descuento);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* --- SELECTOR DE TALLAS --- */
+        .seccion-opcion label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .tallas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .guia-tallas {
+            font-size: 12px;
+            color: #fff;
+            text-decoration: underline;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tallas-grid {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-talla {
+            min-width: 50px;
+            height: 40px;
+            border: 1px solid #555;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        .btn-talla.activo {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        /* --- COLORES --- */
+        .colores-grid {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-box {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .color-box.activo {
+            outline: 2px solid var(--blanco);
+            outline-offset: 2px;
+        }
+
+        /* --- ACCIONES DE COMPRA --- */
+        .acciones-compra {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .contador-cantidad {
+            display: flex;
+            align-items: center;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .contador-cantidad button {
+            width: 35px;
+            height: 45px;
+            border: none;
+            background: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .contador-cantidad span {
+            width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #ffffff;
+            height: 45px;
+            font-weight: 800;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-cart:hover {
+            background: #e6e6e6;
+            border-color: #e6e6e6;
+            transform: translateY(-2px);
+        }
+
+        .filas-extra {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            border: 1px solid var(--verde-whatsapp);
+            color: #25d366;
+            background: rgba(0, 0, 0, 0.5);
+            height: 45px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-favorito {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #ccc;
+            background: transparent;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .logo-contenedor img {
+                height: 60px;
+            }
+            .pdp-container {
+                grid-template-columns: 1fr;
+            }
+            .galeria-wrapper {
+                flex-direction: column-reverse;
+            }
+            .thumbnails {
+                flex-direction: row;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER FIJO -->
+    <header>
+        <div class="logo-contenedor">
+            <img src="logooo.png" alt="EGO CLOTHING">
+        </div>
+        <div class="menu-derecha">
+            <button class="icon-btn" onclick="toggleSidebar()">☰ Menú</button>
+            <a href="carrito.html" style="text-decoration: none;">
+                <button class="icon-btn">🛒 Carrito</button>
+            </a>
+            <a href="pagos.html" style="text-decoration: none;">
+                <button class="icon-btn">💳 Pagos</button>
+            </a>
+        </div>
+    </header>
+
+    <!-- BARRA LATERAL (SIDEBAR) -->
+    <nav class="sidebar" id="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        <a href="archiv-inicio.html" class="sidebar-link">Inicio</a>
+        <a href="redes sociales.html" class="sidebar-link">Redes sociales</a>
+        <a href="colecciones nuevas.html" class="sidebar-link">Nuevas Colecciones</a>
+        <a href="colecciones nuevas.html" class="sidebar-link">Camisetas boxy fit</a>
+        <a href="colecciones nuevas.html" class="sidebar-link">Camisetas boxy fit en piedreria</a>
+        <a href="SKYMASK.html" class="sidebar-link">SKYMASK</a>
+        <a href="galeria.html" class="sidebar-link">STARS</a>
+    </nav>
+
+    <!-- RUTA / BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="archiv-inicio.html">Inicio</a> / <a href="colecciones nuevas.html">camisetas-boxifit</a> / <b>camisetas-boxifit</b>
+    </div>
+
+    <!-- CONTENIDO DEL PRODUCTO -->
+    <div class="pdp-container">
+        
+        <!-- COLUMNA IZQUIERDA: GALERÍA -->
+        <div class="galeria-wrapper">
+            <div class="thumbnails">
+                <img src="pedreria 1.jpeg" class="thumb-img activo" onclick="seleccionarImagen(0)">
+                <img src="nueva coleccion 4.jpeg" class="thumb-img" onclick="seleccionarImagen(1)">
+                <img src="nueva coleccion3.jpeg" class="thumb-img" onclick="seleccionarImagen(2)">
+            </div>
+
+            <div class="main-image-container">
+                <!-- Se añaden los onclick para cambiar la imagen con las flechas -->
+                <button type="button" class="nav-arrow arrow-prev" onclick="cambiarFlecha(-1)">❮</button>
+                <img id="imagen-principal" src="pedreria 1.jpeg" alt="Producto">
+                <button type="button" class="nav-arrow arrow-next" onclick="cambiarFlecha(1)">❯</button>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: INFORMACIÓN DEL PRODUCTO -->
+        <div class="producto-detalles">
+            <h1 class="producto-titulo">Camiseta-boxifit</h1>
+            <p class="producto-ref">REF: 105205771248-909 | 82 Artículos</p>
+            
+            <span class="badge-descuento">HASTA 50% OFF</span>
+
+            <div class="precio-box">
+                <span>$115.500</span>
+                <span class="precio-anterior">$ 165.000</span>
+                <span class="porcentaje-off">-30%</span>
+            </div>
+
+            <!-- TALLAS -->
+            <div class="seccion-opcion">
+                <div class="tallas-header">
+                    <label>Talla</label>
+                    <span class="guia-tallas">GUÍA DE TALLAS</span>
+                </div>
+                <div class="tallas-grid">
+                    <button type="button" class="btn-talla activo">XS</button>
+                    <button type="button" class="btn-talla">S</button>
+                    <button type="button" class="btn-talla">M</button>
+                    <button type="button" class="btn-talla">L</button>
+                    <button type="button" class="btn-talla">XL</button>
+                </div>
+            </div>
+
+            <!-- COLORES -->
+            <div class="seccion-opcion">
+                <label>Color: Negro</label>
+                <div class="colores-grid">
+                    <div class="color-box activo" style="background-color: #000000;"></div>
+                    <div class="color-box" style="background-color: #f5f0dc;"></div>
+                </div>
+            </div>
+
+            <!-- ACCIONES DE COMPRA -->
+            <div class="acciones-compra">
+                <div class="contador-cantidad">
+                    <button type="button" onclick="cambiarCantidad(-1)">-</button>
+                    <span id="cantidad">1</span>
+                    <button type="button" onclick="cambiarCantidad(1)">+</button>
+                </div>
+                
+                <button type="button" class="btn-add-cart" onclick="agregarAlCarrito()">
+                    AÑADIR AL CARRITO
+                </button>
+            </div>
+
+            <div class="filas-extra">
+                <a href="https://wa.me/34613465645" class="btn-whatsapp" target="_blank">
+                    <span>💬 Comprar por WhatsApp</span>
+                </a>
+                <button type="button" class="btn-favorito">♡</button>
+            </div>
+
+        </div> <!-- Fin producto-detalles -->
+    </div> <!-- Fin pdp-container -->
+
+    <script>
+        // Lista con los nombres exactos de tus 3 imágenes
+        const listaImagenes = [
+            "pedreria 1.jpeg",
+            "nueva coleccion 4.jpeg",
+            "nueva coleccion3.jpeg"
+        ];
+        
+        let indiceImagenActual = 0;
+
+        // Abrir y cerrar la barra lateral (Sidebar)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Actualizar la imagen principal y activar la miniatura que corresponde
+        function actualizarGaleria() {
+            const imgPrincipal = document.getElementById('imagen-principal');
+            const thumbs = document.querySelectorAll('.thumb-img');
+
+            imgPrincipal.src = listaImagenes[indiceImagenActual];
+
+            thumbs.forEach((thumb, index) => {
+                if (index === indiceImagenActual) {
+                    thumb.classList.add('activo');
+                } else {
+                    thumb.classList.remove('activo');
+                }
+            });
+        }
+
+        // Navegación con flechas
+        function cambiarFlecha(direccion) {
+            indiceImagenActual += direccion;
+
+            if (indiceImagenActual < 0) {
+                indiceImagenActual = listaImagenes.length - 1;
+            } else if (indiceImagenActual >= listaImagenes.length) {
+                indiceImagenActual = 0;
+            }
+
+            actualizarGaleria();
+        }
+
+        // Clic directo en las miniaturas
+        function seleccionarImagen(index) {
+            indiceImagenActual = index;
+            actualizarGaleria();
+        }
+
+        // Lógica de cantidad
+        let cantidadActual = 1;
+        function cambiarCantidad(v) {
+            cantidadActual += v;
+            if (cantidadActual < 1) cantidadActual = 1;
+            document.getElementById('cantidad').innerText = cantidadActual;
+        }
+
+        // Selección de tallas
+        document.querySelectorAll('.btn-talla:not(.agotado)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.btn-talla').forEach(b => b.classList.remove('activo'));
+                this.classList.add('activo');
+            });
+        });
+
+        // Agregar al carrito (localStorage)
+        function agregarAlCarrito() {
+            const tallaActiva = document.querySelector('.btn-talla.activo');
+            const talla = tallaActiva ? tallaActiva.innerText : 'M';
+            const cantidad = parseInt(document.getElementById('cantidad').innerText);
+
+            const producto = {
+                id: "cam-unicolor-01",
+                nombre: "Camiseta unicolor con cuello redondo y detalle de encaje",
+                precio: 115500,
+                talla: talla,
+                cantidad: cantidad,
+                imagen: document.getElementById('imagen-principal').src
+            };
+
+            let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+            
+            const indiceExistente = carrito.findIndex(item => item.id === producto.id && item.talla === producto.talla);
+
+            if (indiceExistente !== -1) {
+                carrito[indiceExistente].cantidad += cantidad;
+            } else {
+                carrito.push(producto);
+            }
+
+            localStorage.setItem('miCarrito', JSON.stringify(carrito));
+            window.location.href = 'carrito.html';
+        }
+    </script>
+</body>
+</html>
+</html>
