@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 1. AQUÍ VA EL FAVICON (Solo esto va en el head) -->
+    <link rel="icon" type="image/png" href="logo-2.png">
+
+    <!-- 2. EL TÍTULO DE LA PESTAÑA -->
+    <title>Archiv Sport </title>
+</head>
+<body style="background-color: #000; margin: 0; padding: 0;">
+
+    
+
+</body>
+
+    <style>
+        /* --- ESTILOS GENERALES (Para computadora) --- */
+.menu-derecha {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contenedor-carta {
+    width: 300px; /* Tamaño normal en PC */
+}
+
+
+/* --- CÓDIGO PARA CELULARES (Pantallas menores a 768px) --- */
+@media (max-width: 768px) {
+    
+    /* El cuerpo de la página ya no se desborda */
+    body {
+        padding: 10px;
+        font-size: 14px; /* Achicamos un poco la letra si es necesario */
+    }
+
+    /* Si tus productos están en fila, en el celular se pondrán uno abajo del otro */
+    .productos, .menu-derecha {
+        flex-direction: column; 
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Las tarjetas de tus prendas se adaptarán al ancho de la pantalla del celular */
+    .contenedor-carta {
+        width: 100%; 
+        max-width: 320px; /* Para que no se estiren infinitamente */
+    }
+
+    /* Ajustar imágenes para que nunca se salgan de su contenedor */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+        :root {
+            --negro-fondo: #0a050d;
+            --rojo-neon: #ff2a00;
+            --cian-termico: #a3ffeb;
+            --blanco: #ffffff;
+            --gris-trans: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--negro-fondo);
+            /* AQUÍ SE ADJUNTA TU IMAGEN COMO FONDO GENERAL DE LA WEB */
+            background-image: linear-gradient(rgba(10, 5, 13, 0.85), rgba(10, 5, 13, 0.85)), 
+                              url('https://static.vecteezy.com/system/resources/thumbnails/020/171/692/small/fire-liquid-iridescent-background-iridescent-chrome-wavy-gradient-abstract-background-holographic-fire-texture-liquid-surface-ripples-reflection-photo.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            color: var(--blanco);
+            overflow-x: hidden;
+            padding-bottom: 100px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 50px;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-contenedor img {
+            height: 90px;
+            filter: drop-shadow(0 0 8px var(--rojo-neon));
+        }
+
+        .menu-derecha {
+            display: flex;
+            gap: 30px;
+        }
+
+        .icon-btn {
+            background: none; border: none; color: var(--blanco);
+            cursor: pointer; font-size: 14px; letter-spacing: 1px;
+            transition: 0.3s; text-transform: uppercase;
+        }
+
+        .icon-btn:hover {
+            color: var(--cian-termico);
+            text-shadow: 0 0 10px var(--rojo-neon);
+        }
+
+        /* --- MENU LATERAL (SIDEBAR) --- */
+        .sidebar {
+            position: fixed;
+            top: 0; right: -350px;
+            width: 350px; height: 100%;
+            background: rgba(10, 5, 13, 0.98);
+            backdrop-filter: blur(15px);
+            border-left: 2px solid var(--rojo-neon);
+            transition: right 0.5s ease;
+            z-index: 2000;
+            padding: 60px 40px;
+            display: flex; flex-direction: column; gap: 35px;
+        }
+
+        .sidebar.active { right: 0; }
+
+        .close-sidebar {
+            align-self: flex-end; background: none; border: none;
+            color: var(--rojo-neon); font-size: 24px; cursor: pointer;
+        }
+
+        .sidebar-link {
+            color: var(--blanco); text-decoration: none;
+            font-size: 20px; text-transform: uppercase; letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .sidebar-link:hover {
+            color: var(--cian-termico);
+            padding-left: 10px;
+        }
+
+        /* --- SECCIÓN 1: CARRUSEL DE MODELOS --- */
+
+        :root {
+            --negro-fondo: #0a050d;
+            --blanco: #ffffff;
+            --violeta-neon: #a855f7;
+            --rojo-neon: #ff2a00;
+        }
+
+        body {
+            background-color: var(--negro-fondo);
+            background-image: linear-gradient(rgba(10, 5, 13, 0.85), rgba(10, 5, 13, 0.85)), 
+                              url('https://static.vecteezy.com/system/resources/thumbnails/020/171/692/small/fire-liquid-iridescent-background-iridescent-chrome-wavy-gradient-abstract-background-holographic-fire-texture-liquid-surface-ripples-reflection-photo.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            color: var(--blanco);
+            overflow-x: hidden;
+            padding-bottom: 100px;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+        }
+
+        .carrusel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2);
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            cursor: pointer; font-size: 18px; transition: 0.3s; z-index: 10;
+        }
+
+        .carrusel-btn:hover {
+            background: var(--rojo-neon); color: #000;
+            box-shadow: 0 0 15px var(--rojo-neon);
+        }
+
+        .btn-prev { left: 20px; }
+        .btn-next { right: 20px; }
+
+        .seccion-carrusel {
+            margin-top: 140px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .titulo-seccion {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--blanco);
+            text-shadow: 0 0 10px rgba(255, 42, 0, 0.5);
+        }
+
+        /* MARCO DEL CARRUSEL */
+        .carrusel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 520px;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(255, 42, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* CORREGIDO: Ancho exacto para 7 slides (700%) */
+        .carrusel-track {
+            display: flex;
+            width: 700%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        .carrusel-slide {
+            width: 100%; 
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .carrusel-slide img, 
+        .carrusel-slide video {
+            width: 100%; 
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .slide-info {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex; justify-content: space-between; align-items: flex-end;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .slide-info h2 {
+            font-size: 28px; text-transform: uppercase; letter-spacing: 2px; margin: 0;
+        }
+        /* --- SECCIÓN 2: LAS CARTAS EXPERIENCIALES --- */
+        .experiencia-container {
+            max-width: 1200px;
+            margin: 80px auto 0 auto;
+            padding: 0 40px;
+        }
+
+        .grid-prendas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        .contenedor-carta {
+            width: 100%; height: 420px;
+            cursor: pointer; position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contenedor-carta:hover {
+            transform: rotateY(180deg);
+        }
+
+        .cara {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
+            clip-path: polygon(6% 0%, 93% 4%, 100% 90%, 0% 95%);
+        }
+
+        /* FRONT: AQUÍ COLOCAMOS TU IMAGEN EN LAS CARTAS */
+        .frontal {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                              url('WhatsApp Image 2026-06-24 at 6.54.25 PM.jpeg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        /* Texto brillante que invita a interactuar */
+        .texto-revelar {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: 1px solid var(--rojo-neon);
+            text-shadow: 0 0 8px var(--rojo-neon);
+            transition: 0.3s;
+        }
+
+        .contenedor-carta:hover .texto-revelar {
+            transform: scale(1.1);
+        }
+
+        .etiqueta-categoria {
+            position: absolute; top: 30px; left: 30px;
+            font-size: 14px; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--blanco);
+            background: #000;
+            padding: 2px 10px;
+        }
+
+        /* BACK: Prenda Real */
+        .trasera {
+            background-color: rgba(10, 5, 13, 0.98);
+            transform: rotateY(180deg);
+            border: 2px solid var(--rojo-neon);
+            box-shadow: 0 0 30px rgba(164, 38, 12, 0.4);
+            padding: 30px;
+            flex-direction: column;
+            justify-content: space-between;
+
+            
+        }
+
+        .prenda-real {
+            max-width: 85%; max-height: 65%; object-fit: contain;
+        }
+
+        .info-prenda { text-align: center; width: 100%; }
+        .nombre-prenda { font-size: 18px; text-transform: uppercase; margin-bottom: 5px; }
+        .precio-prenda { color: var(--cian-termico); font-weight: bold; font-size: 16px; margin-bottom: 10px;}
+
+        .btn-comprar {
+            background: transparent; border: 1px solid var(--rojo-neon);
+            color: #fff; padding: 8px 25px; border-radius: 30px;
+            cursor: pointer; text-transform: uppercase; font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .btn-comprar:hover {
+            background: var(--rojo-neon);
+            box-shadow: 0 0 15px var(--rojo-neon);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-contenedor">
+            <!-- TU LOGO EN PNG VA AQUÍ -->
+            <img src="logooo.png" alt="EGO CLOTHING" onerror="this.src='https://via.placeholder.com/150x50/000000/ffffff?text=EGO+LOGO'">
+        </div>
+        <div class="menu-derecha">
+            <button class="icon-btn" onclick="toggleSidebar()">☰ Menú</button>
+              <a href="carrito.html" style="text-decoration: none;">
+        <button class="icon-btn">🛒 Carrito</button>
+    </a>
+    <a href="pagos.html" style="text-decoration: none;">
+            <button class="icon-btn">💳 Pagos</button>
+            </a>
+        </div>
+    </header>
+
+    <!-- MENÚ LATERAL -->
+    <nav class="sidebar" id="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+         <a href="archiv-inicio.html" class="sidebar-link">inicio</a>
+        <a href="redes sociales.html" class="sidebar-link">Redes sociales</a>
+        <a href="colecciones nuevas.html" class="sidebar-link">Nuevas Colecciones</a>
+        <a href="colecciones nuevas.html" class="sidebar-link">Camisetas boxy fit</a>
+        <a href="colecciones nuevas.html" class="sidebar-link">Camisetas boxy fit en piedreria</a>
+         <a href="SKYMASK.html" class="sidebar-link">SKYMASK</a>
+          <a href="galeria.html" class="sidebar-link">STARS</a>
+
+        </nav>
+    <!-- SECCIÓN 1: CARRUSEL DE MODELOS -->
+    <section class="seccion-carrusel">
+        <h2 class="titulo-seccion">Campañas / Lookbook</h2>
+        <div class="carrusel-container">
+            <button class="carrusel-btn btn-prev" onclick="moverCarrusel(-1)">❮</button>
+            <button class="carrusel-btn btn-next" onclick="moverCarrusel(1)">❯</button>
+            
+            <div class="carrusel-track" id="track">
+                <div class="carrusel-slide">
+                    <img src="carrusel-nv coleccion 2.jpeg" alt="Modelo 1">
+                    <div class="slide-info">
+                        <div>
+                            <h2>Cyber Streetwear</h2>
+                            <p>Colección Cápsula de Invierno</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carrusel-slide">
+                    <img src="carrusel-nv coleccion 1.jpeg" alt="Modelo 2">
+                    <div class="slide-info">
+                        <div>
+                            <h2>Neo Industrial</h2>
+                            <p>Sacos & Chaquetas</p>
+                        </div>
+                    </div>
+                </div>
+               
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: GRID DE CARTAS CON TU TEXTURA INTERACTIVA -->
+    <main class="experiencia-container">
+        <h2 class="titulo-seccion">Explora el Stock</h2>
+        <div class="grid-prendas">
+                  <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion 1.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+            <a href="camiseta.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+
+                  <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion 2.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+           <a href="camiseta3.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+
+                  <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion3.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+            
+          <a href="camiseta2.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+                  <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion 4.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+            
+              <a href="camiseta5.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+                  <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion 5.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+            
+              <a href="camiseta6.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+                  <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion 6.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+            
+             <a href="camiseta7.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+           <div class="contenedor-carta">
+    <div class="cara frontal">
+        <div class="etiqueta-categoria">camisetas piedreria</div>
+        <div class="texto-revelar">Revelar Prenda</div>
+    </div>
+    <div class="cara trasera">
+        <img src="nueva coleccion 9.jpeg" alt="Prenda" class="prenda-real">
+        <div class="info-prenda">
+            <div class="nombre-prenda">camisetas piedreria</div>
+            <div class="precio-prenda">$165.000 COP</div>
+            
+             <a href="camiseta8.html" class="btn-comprar">comprar</a>
+        </div>
+    </div>
+</div>
+                
+                  
+      
+ <!-- Carta 3: skymask -->
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">SKYMASK</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="SKYMASK 1.jpeg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">SKYMASK</div>
+                        <div class="precio-prenda">$55.000 COP</div>
+                   <a href="SKYMASK 1.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">SKYMASK</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="tarjeta 2.jpeg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">SKYMASK</div>
+                        <div class="precio-prenda">$55.000 COP</div>
+                        <a href="SKYMASK 2.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+           <div class="contenedor-carta">
+                <div class="cara frontal">
+                    <div class="etiqueta-categoria">SKYMASK</div>
+                    <div class="texto-revelar">Revelar Prenda</div>
+                </div>
+                <div class="cara trasera">
+                    <img src="SKYMASK 14.jpeg" alt="Prenda" class="prenda-real">
+                    <div class="info-prenda">
+                        <div class="nombre-prenda">SKYMASK</div>
+                        <div class="precio-prenda">$55.000 COP</div>
+                     <a href="SKYMASK 3.html" class="btn-comprar">comprar</a>
+                    </div>
+                </div>
+            </div>
+</main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        let indiceActual = 0;
+        const totalSlides = 3;
+        const track = document.getElementById('track');
+
+        function moverCarrusel(direccion) {
+            indiceActual += direccion;
+            if (indiceActual < 0) indiceActual = totalSlides - 1;
+            if (indiceActual >= totalSlides) indiceActual = 0;
+            track.style.transform = `translateX(${indiceActual * -33.333}%)`;
+        }
+
+        setInterval(() => moverCarrusel(1), 5000); // Cambio automático de modelos
+        function agregarAlCarrito(nombre, precio) {
+    // 1. Obtener el carrito actual o crear uno vacío si no existe
+    let carrito = JSON.parse(localStorage.getItem('miCarrito')) || [];
+    
+    // 2. Agregar el producto elegido con su precio numérico real
+    carrito.push({ nombre: nombre, precio: precio });
+    
+    // 3. Guardar la lista actualizada en el navegador
+    localStorage.setItem('miCarrito', JSON.stringify(carrito));
+    
+    // 4. Redirigir al usuario al carrito
+    window.location.href = "carrito.html";
+}
+    </script>
+</body>
+</html>
